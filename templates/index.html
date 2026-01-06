@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Detector</title>
+    <style>
+        /* Full page gradient background */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* Container for content */
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 30px 40px;
+            border-radius: 15px;
+            margin-top: 50px;
+            max-width: 700px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        /* Heading */
+        h1 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            border-radius: 10px;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            resize: vertical;
+            box-sizing: border-box;
+            color: #000;
+        }
+        /* Button styling */
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            background-color: #ff6b6b;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ee5a52;
+        }
+        /* Prediction output styles */
+        .result {
+            margin-top: 30px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #51cf66, #40c057);
+            border-radius: 10px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .result.fake {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+        /* Image styling */
+        .news-image {
+            margin: 20px auto 30px;
+            max-width: 100px;
+            border-radius: 15px;
+            display: block;
+        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                margin-top: 25px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .result {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fake News Detection System</h1>
+        <!-- Example image above form -->
+        <img src="https://cdn-icons-png.flaticon.com/512/2633/2633825.png" alt="Fake News Icon" class="news-image" />
+        
+        <form method="POST" action="/">
+            <textarea name="news_text" rows="6" placeholder="Paste news article here..." required></textarea><br>
+            <button type="submit">Analyze News</button>
+        </form>
+        
+        {% if prediction %}
+            <div class="result {{ 'fake' if prediction.lower() == 'fake' else '' }}">
+                Prediction: {{ prediction }} <br>
+                Confidence: {{ confidence }}%
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
